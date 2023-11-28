@@ -1,0 +1,39 @@
+.navbar {
+  /* border: 1px solid blue; */
+  display: flex;
+  align-items: center;
+  height: 10vh;
+  background-image: linear-gradient(to bottom, rgb(158, 143, 143), white);
+  background-clip: text;
+  position: relative;
+  z-index: 2;
+  color: transparent;
+}
+
+.logoCover {
+  position: relative;
+  left: 2%;
+  background-image: linear-gradient(to bottom, rgb(94, 92, 92), white);
+  background-clip: text;
+  color: transparent;
+  height: 100%;
+  font-weight: bold;
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  flex: 70%;
+}
+
+.logo {
+  position: relative;
+  right: 15%;
+  object-fit: contain;
+  width: 50%;
+  height: 50%;
+}
+
+.navActions {
+  display: flex;
+  justify-content: space-around;
+  flex: 30%;
+}
