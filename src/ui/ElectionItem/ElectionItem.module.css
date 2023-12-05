@@ -1,14 +1,14 @@
 .itemCover {
   /* border: 2px solid black; */
   display: flex;
-  height: 24%;
+  height: 90%;
   border-bottom: 1px solid black;
   transition: 1s height, 1s opacity;
   padding: 1%;
 }
 
 .itemCover:hover {
-  height: 28%;
+  height: 100%;
   cursor: pointer;
 }
 

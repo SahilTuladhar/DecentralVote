@@ -3,6 +3,7 @@ import { react, useState, useCallback, useEffect } from "react";
 import ElectionItem from "../../ui/ElectionItem/ElectionItem";
 import Navbar from "../../ui/Navbar/Navbar";
 import { bouncy } from "ldrs";
+import { Link } from "react-router-dom";
 
 const ElectionList = () => {
   bouncy.register();

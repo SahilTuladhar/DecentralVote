@@ -5,10 +5,13 @@ import ElectionPageData from "../../ui/ElectionPageData/ElectionPageData";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import { UserData } from "../../ui/LineChart/Data";
 import LineChart from "../../ui/LineChart/LineChart";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
+import ElectionItemContext from "../../contexts/electionItem-context";
 import Chart from "chart.js/auto";
 
-const ElectionPage = () => {
+const ElectionPage = (props) => {
+  const electionItemCtx = useContext(ElectionItemContext);
+
   const canvasRef = useRef(null);
   const chartRef = useRef(null);
   const [delayed, setDelayed] = useState(false);
@@ -105,10 +108,10 @@ const ElectionPage = () => {
             <h2>Overview</h2>
             <div className={styles.electionInfo}>
               <div className={styles.electionInfoUp}>
-                <h2>2023 Election KUCC President Vote</h2>
+                <h2>{electionItemCtx.title}</h2>
               </div>
               <div className={styles.electionInfoDown}>
-                <h3>KU Computer Club</h3>
+                <h3>{electionItemCtx.organizer}</h3>
                 <div className={styles.electionDate}>
                   <CalendarTodayOutlinedIcon className={styles.icon} />
                   <p>11/30 - 12/22</p>
