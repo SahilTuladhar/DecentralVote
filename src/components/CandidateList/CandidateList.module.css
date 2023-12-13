@@ -1,0 +1,23 @@
+.votersListPageCover {
+  height: 90vh;
+  display: flex;
+}
+
+.pageContent {
+  width: 80%;
+  display: flex;
+  padding: 5%;
+
+  flex-wrap: wrap;
+  /* justify-content: space-evenly; */
+}
+
+.pageContent.loading {
+  align-items: center;
+  justify-content: center;
+}
+
+.pageContent.loading p {
+  font-size: 30px;
+  font-weight: 500;
+}

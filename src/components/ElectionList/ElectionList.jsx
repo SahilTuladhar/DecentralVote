@@ -76,7 +76,7 @@ const ElectionList = () => {
   if (isLoading) {
     content = (
       // Default values shown
-      <l-bouncy size="45" speed="1.75" color="black"></l-bouncy>
+      <l-bouncy size="85" speed="1.75" color="#c6c2f8"></l-bouncy>
     );
   }
 
@@ -90,7 +90,13 @@ const ElectionList = () => {
           alt="decentral vote logo"
         />
 
-        <div className={styles.formContainer}>{content}</div>
+        <div
+          className={`${styles["formContainer"]} ${
+            isLoading ? styles.loading : ""
+          }`}
+        >
+          {content}
+        </div>
       </div>
     </div>
   );

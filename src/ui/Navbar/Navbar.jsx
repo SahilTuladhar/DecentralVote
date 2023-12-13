@@ -14,7 +14,10 @@ const Navbar = () => {
       </div>
 
       <div className={styles.navActions}>
-        <p>Home</p>
+        <Link to ='/election-list'>
+          <p>My Elections</p>
+        </Link>
+
         <p>My Profile</p>
         <p>
           <Link to="/">Log Out</Link>

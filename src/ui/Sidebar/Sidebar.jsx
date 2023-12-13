@@ -23,14 +23,20 @@ const Sidebar = () => {
           optionTitle="Results"
           iconTitle={<PollOutlinedIcon />}
         />
-        <SidebarComponent
-          optionTitle="Voters List"
-          iconTitle={<PeopleAltOutlinedIcon />}
-        />
-        <SidebarComponent
-          optionTitle="Candidate List"
-          iconTitle={<EmojiPeopleOutlinedIcon />}
-        />
+
+        <Link to="/voters-list">
+          <SidebarComponent
+            optionTitle="Voters List"
+            iconTitle={<PeopleAltOutlinedIcon />}
+          />
+        </Link>
+
+        <Link to ="/candidate-list">
+          <SidebarComponent
+            optionTitle="Candidate List"
+            iconTitle={<EmojiPeopleOutlinedIcon />}
+          />
+        </Link>
 
         <Link to="/add-voter">
           <SidebarComponent
@@ -40,10 +46,13 @@ const Sidebar = () => {
           />
         </Link>
 
-        <SidebarComponent
-          optionTitle="Add Candidate"
-          iconTitle={<PersonAddAltOutlinedIcon />}
-        />
+        <Link to="/add-candidate">
+          {" "}
+          <SidebarComponent
+            optionTitle="Add Candidate"
+            iconTitle={<PersonAddAltOutlinedIcon />}
+          />{" "}
+        </Link>
       </div>
     </div>
   );

@@ -1,11 +1,10 @@
-import styles from "./AddVoter.module.css";
+import styles from "./AddCandidate.module.css";
 import Sidebar from "../../ui/Sidebar/Sidebar";
 import Navbar from "../../ui/Navbar/Navbar";
 import useInput from "../../hooks/use-input";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
-const AddVoter = () => {
+const AddCandidate = () => {
   const [error, setError] = useState(null);
 
   const {
@@ -31,28 +30,28 @@ const AddVoter = () => {
   });
 
   const onSubmitHandler = (event) => {
-    const newVoter = {
-      voterName: enteredName,
-      voterId: enteredId,
+    const newCandidate = {
+      candidateName: enteredName,
+      candidateId: enteredId,
     };
 
     event.preventDefault();
 
-    onAddVoter(newVoter);
+    onAddCandidate(newCandidate);
 
     nameReset();
     idReset();
   };
 
-  const onAddVoter = async (voterData) => {
+  const onAddCandidate = async (candidateData) => {
     setError(null);
 
     try {
       const response = await fetch(
-        "https://decentral-51b5a-default-rtdb.firebaseio.com/voters.json",
+        "https://decentral-51b5a-default-rtdb.firebaseio.com/candidate.json",
         {
           method: "POST",
-          body: JSON.stringify(voterData),
+          body: JSON.stringify(candidateData),
           headers: {
             "content-type": "application.json",
           },
@@ -73,28 +72,30 @@ const AddVoter = () => {
   return (
     <>
       <Navbar />
-      <div className={styles.electionPageCover}>
+      <div className={styles.candidatePageCover}>
         <Sidebar />
         <div className={styles.pageContent}>
-          <h2>Add Voter</h2>
+          <h2>Add Candidate</h2>
 
           <div className={styles.imageCover}>
-            <img src="\images\add-voter-image.png" alt="add-voter-page-image" />
+            <img
+              src="\images\add-candidate-image.png"
+              alt="add-voter-page-image"
+            />
           </div>
-          
 
           <form onSubmit={onSubmitHandler}>
             <div
-              className={`${styles["addVoterForm"]} ${
+              className={`${styles["addCandidateForm"]} ${
                 nameIsInvalid || idIsInvalid ? styles.invalid : ""
               }`}
             >
-              <p>Please Enter Voter's Details</p>
-              <label htmlFor="voter-name">Name</label>
+              <p>Please Enter Candidate's Details</p>
+              <label htmlFor="candidate-name">Name</label>
               <input
-                id="voter-name"
+                id="candidate-name"
                 type="text"
-                placeholder="Enter Voter's Name"
+                placeholder="Enter Candidate's Name"
                 onChange={nameInputHandler}
                 onBlur={nameBlurHandler}
                 value={enteredName}
@@ -102,17 +103,17 @@ const AddVoter = () => {
 
               {nameIsInvalid ? (
                 <p className={styles.errorMessage}>
-                  Please Enter a Valid Voter Name
+                  Please Enter a Valid Candidate Name
                 </p>
               ) : (
                 ""
               )}
 
-              <label htmlFor="voter-id">Voter Id</label>
+              <label htmlFor="candidate-id">Candidate Id</label>
               <input
-                id="voter-id"
+                id="candidate-id"
                 type="text"
-                placeholder="Enter Voter's Id"
+                placeholder="Enter Candidate's Id"
                 onChange={idInputHandler}
                 onBlur={idBlurHandler}
                 value={enteredId}
@@ -120,14 +121,16 @@ const AddVoter = () => {
 
               {idIsInvalid ? (
                 <p className={styles.errorMessage}>
-                  Please Enter a Valid Voter Id
+                  Please Enter a Valid Candidate Id
                 </p>
               ) : (
                 ""
               )}
 
               <div className={styles.formActions}>
-                <button className={styles.addVoterButton}>Add Voter</button>
+                <button className={styles.addCandidateButton}>
+                  Add Candidate
+                </button>
               </div>
             </div>
           </form>
@@ -137,4 +140,4 @@ const AddVoter = () => {
   );
 };
 
-export default AddVoter;
+export default AddCandidate;
