@@ -48,7 +48,7 @@ const ElectionList = () => {
       return (
         <ElectionItem
           title={item.title}
-          organizer={item.rganizer}
+          organizer={item.organizer}
           sDate={item.startdate}
           eDate={item.enddate}
         />
