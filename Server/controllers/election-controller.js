@@ -36,6 +36,17 @@ const electioncreation= async (req, res) => {
 
 
 
+const electionlist = async(req,res)=>{
+    const User = req.user
+    const Userid = User.id
+    try {
+        const elections= await Election.find({ createdby: Userid})
+        console.log('elections',elections)
+        res.send({elections});
+    } catch (error) {
+        
+    }
+}
 
 
 
@@ -43,5 +54,4 @@ const electioncreation= async (req, res) => {
 
 
 
-
-module.exports = {electioncreation}
+module.exports = {electioncreation,electionlist}

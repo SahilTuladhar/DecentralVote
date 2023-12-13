@@ -4,6 +4,7 @@ import ElectionItem from "../../ui/ElectionItem/ElectionItem";
 import Navbar from "../../ui/Navbar/Navbar";
 import { bouncy } from "ldrs";
 import { Link } from "react-router-dom";
+import axios from 'axios'
 
 const ElectionList = () => {
   bouncy.register();
@@ -11,38 +12,24 @@ const ElectionList = () => {
   const [elections, setElections] = useState([]);
   const [isLoading, setIsloading] = useState(false);
   const [error, setError] = useState(null);
+ 
 
   const fetchData = async () => {
     setError(null);
     setIsloading(true);
 
     try {
-      const response = await fetch(
-        " https://decentral-51b5a-default-rtdb.firebaseio.com/elections.json",
-        {
-          method: "GET",
-        }
-      );
+    
+      axios
+      .get("http://localhost:4000/election/electionlist", {
+        withCredentials: true,
+      })
+      .then((res) => {
+    
+        setElections(res.data.elections);
+        console.log('elections',elections)
+      })
 
-      if (!response.ok) {
-        throw new Error("Something is Wrong");
-      }
-
-      const data = await response.json();
-      console.log(data);
-
-      const addedElections = [];
-
-      for (const key in data) {
-        addedElections.push({
-          electionTitle: data[key].electionTitle,
-          electionOrganizer: data[key].electionOrganizer,
-          startDate: data[key].electionStartDate,
-          endDate: data[key].electionEndDate,
-        });
-      }
-
-      setElections(addedElections);
     } catch (error) {
       setError(error.meesage);
     }
@@ -60,10 +47,10 @@ const ElectionList = () => {
     content = elections.map((item) => {
       return (
         <ElectionItem
-          title={item.electionTitle}
-          organizer={item.electionOrganizer}
-          sDate={item.startDate}
-          eDate={item.endDate}
+          title={item.title}
+          organizer={item.rganizer}
+          sDate={item.startdate}
+          eDate={item.enddate}
         />
       );
     });
