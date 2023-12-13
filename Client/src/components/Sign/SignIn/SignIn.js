@@ -2,7 +2,7 @@ import { React, useState, useEffect } from "react";
 import useInput from "../../../hooks/use-input";
 import styles from "./SignIn.module.css";
 import { Link } from "react-router-dom";
-
+import axios from 'axios'
 const SignIn = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
 
@@ -36,24 +36,45 @@ const SignIn = (props) => {
     valueBlurHandler: voterIdBlurHandler,
     reset: voterIdReset,
   } = useInput((value) => {
-    return value && value.length >= 8;
+    return value && value.length >= 7;
   });
 
-  const onSubmitHandler = (event) => {
+  const onSubmitHandler = async (event) => {
     event.preventDefault();
-
-    const userData = {
-      username: enteredUsername,
-      voterID: enteredVoterId,
-      password: enteredPassword,
-    };
-
-    console.log(userData);
-
+    const voterID = enteredVoterId;
+    const name = enteredUsername;
+    const password = enteredPassword;
+  
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/user/login",
+        {
+          name,
+          voterID,
+          password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+  
+      // Check if the response contains a userId, indicating successful login
+      if (response.data.userId) {
+        // Redirect the user to the home page or dashboard
+        window.location.href = "/landing-page";
+      } else {
+        alert("Invalid login credentials");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Failed to login. Please try again later.");
+    }
     usernameReset();
-    passwordReset();
     voterIdReset();
+    passwordReset();
   };
+  
+  
 
   useEffect(() => {
     if (usernameIsValid && passwordIsValid && voterIdIsValid) {
@@ -117,7 +138,7 @@ const SignIn = (props) => {
         </div>
         <div className={styles.formActions}>
           <button className={styles.signInButton} disabled={!formIsValid}>
-            <Link to="/landing-page">sign in</Link>
+         sign in
           </button>
         </div>
       </form>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import styles from "./SignUp.module.css";
 import useInput from "../../../hooks/use-input";
-
+import axios from "axios"
 const SignUp = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
 
@@ -62,17 +62,23 @@ const SignUp = (props) => {
     newPasswordReset();
   };
 
-  const onSubmitNewUser = async (userData) => {
-    await fetch(
-      "https://decentral-51b5a-default-rtdb.firebaseio.com/users.json",
-      {
-        method: "POST",
-        body: JSON.stringify(userData),
-        headers: {
-          "content-type": "application.json",
-        },
-      }
-    );
+  const onSubmitNewUser = async (event) => {
+    
+      const name = enteredUsername
+      const password = enteredNewPassword
+
+
+    try {
+      const response = await axios.post("http://localhost:4000/user/signup", {
+        name,
+        password
+
+      });
+      
+      window.location.href = "/landing-page";
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
