@@ -9,7 +9,8 @@ const sessions ={}
 const auth = async (req, res, next) => {
   try {
   
-      const authcookie = req.cookies.auth_token
+      const authcookie = req.cookies.user_token
+      console.log('auth',authcookie)
     
      
     if (!authcookie) {

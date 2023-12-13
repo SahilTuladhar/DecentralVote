@@ -4,7 +4,7 @@ import Navbar from "../../ui/Navbar/Navbar";
 import styles from "./ElectionForm.module.css";
 import TimezoneSelect from "react-timezone-select";
 import { Link, useNavigate } from "react-router-dom";
-
+import axios from 'axios'
 const ElectionForm = () => {
   const [selectedTimezone, setSelectedTimezone] = useState(
     Intl.DateTimeFormat().resolvedOptions().timeZone
@@ -77,32 +77,32 @@ const ElectionForm = () => {
     organizerReset();
   };
 
-  const onCreateElection = async (electionData) => {
-    setError(null);
-
+  const onCreateElection = async (event) => {
+ 
+    const title = enteredTitle;
+    const startdate = enteredStartDate;
+    const enddate = enteredEndDate;
+    const organizer = enteredOrganizer
     try {
-      const response = await fetch(
-        "https://decentral-51b5a-default-rtdb.firebaseio.com/elections.json",
+      const response = await axios.post(
+        "http://localhost:4000/election/createelection",
         {
-          method: "POST",
-          body: JSON.stringify(electionData),
-          headers: {
-            "content-type": "application.json",
-          },
+          title,
+          startdate,
+          enddate,
+          organizer
+        },
+        {
+          withCredentials: true,
         }
       );
-
-      if (!response.ok) {
-        throw new Error("Something is Wrong");
-      }
-
-      const data = await response.json();
-      console.log(data);
-
-      history("/election-list");
+  
+   
     } catch (error) {
-      setError(error.message);
+      console.error(error);
+      alert("Failed to create election ");
     }
+    window.location.href = "election-list"
   };
 
   return (
