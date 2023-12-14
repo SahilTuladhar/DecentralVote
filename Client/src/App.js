@@ -22,8 +22,8 @@ function App() {
       <Route path="/election-form" element={<ElectionForm />} />
       <Route path="/election-list" element={<ElectionList />} />
       <Route path="/election-page" element={<ElectionPage />} />
-      <Route path="/add-voter" element={<AddVoter />} />
-      <Route path="/add-candidate" element={<AddCandidate />} />
+      <Route path="/add-voter/:id" element={<AddVoter />} />
+      <Route path="/add-candidate/:id" element={<AddCandidate />} />
       <Route path="/voters-list" element={<VotersList />} />
       <Route path="/candidate-list" element={<CandidateList />} />
     </Routes>

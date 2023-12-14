@@ -3,11 +3,12 @@ import Sidebar from "../../ui/Sidebar/Sidebar";
 import Navbar from "../../ui/Navbar/Navbar";
 import useInput from "../../hooks/use-input";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useParams } from "react-router-dom";
 
+import axios from 'axios'
 const AddVoter = () => {
   const [error, setError] = useState(null);
-
+  const { id } = useParams();
   const {
     value: enteredName,
     valueIsValid: nameIsValid,
@@ -44,32 +45,25 @@ const AddVoter = () => {
     idReset();
   };
 
-  const onAddVoter = async (voterData) => {
-    setError(null);
+  const onAddVoter = async (event) => {
 
-    try {
-      const response = await fetch(
-        "https://decentral-51b5a-default-rtdb.firebaseio.com/voters.json",
-        {
-          method: "POST",
-          body: JSON.stringify(voterData),
-          headers: {
-            "content-type": "application.json",
-          },
-        }
-      );
+    const name = enteredName
+    const voterID= enteredId
+  
 
-      if (!response.ok) {
-        throw new Error("Something is Wrong ");
-      }
+  try {
+    const response = await axios.post(`http://localhost:4000/voter/addvoter/${id}`, {
+      name,
+      voterID
 
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      setError(error.message);
-    }
-  };
+    });
 
+    ;
+  } catch (err) {
+    console.log(err);
+  }
+};
+  
   return (
     <>
       <Navbar />

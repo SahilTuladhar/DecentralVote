@@ -15,6 +15,7 @@ const ElectionItem = (props) => {
     organizer: props.organizer,
     startDate: props.sDate,
     endDate: props.eDate,
+    eId: props.electionid
   };
 
   const onElectionItemClicked = () => {
@@ -22,6 +23,7 @@ const ElectionItem = (props) => {
     electionItemCtx.setItemOrganizer(props.organizer);
     electionItemCtx.setItemStartDate(props.sDate);
     electionItemCtx.setItemEndDate(props.eDate);
+    electionItemCtx.setItemElectionId(props.electionid)
     console.log(electionItemCtx.title);
     console.log(electionItemData);
   };

@@ -8,7 +8,10 @@ import GroupAddOutlinedIcon from "@mui/icons-material/GroupAddOutlined";
 import PersonAddAltOutlinedIcon from "@mui/icons-material/PersonAddAltOutlined";
 import { Link } from "react-router-dom";
 
-const Sidebar = () => {
+const Sidebar = (props) => {
+
+
+
   return (
     <div className={styles.sidebarCover}>
       <div className={styles.sidebarContents}>
@@ -38,15 +41,15 @@ const Sidebar = () => {
           />
         </Link>
 
-        <Link to="/add-voter">
+        <Link to={`/add-voter/${props.eid}`}>
           <SidebarComponent
             optionTitle="Add Voter"
             iconTitle={<GroupAddOutlinedIcon />}
-            linkTo="/add-voter"
+      
           />
         </Link>
 
-        <Link to="/add-candidate">
+        <Link to={`/add-candidate/${props.eid}`}>
           {" "}
           <SidebarComponent
             optionTitle="Add Candidate"

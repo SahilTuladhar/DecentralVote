@@ -23,8 +23,13 @@ const electionSchema = new mongoose.Schema({
     createdby :{
         type: String,
         required : true
+    } ,
+    voters: {
+        type: Array
+    },
+    candidates :{
+        type: Array
     }
-
  
 });
 

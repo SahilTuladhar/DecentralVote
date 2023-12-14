@@ -11,7 +11,8 @@ const port = 4000;
 const Userrouter = require('../Server/routes/ user-routes')
 const Electionrouter = require('../Server/routes/election-routes')
 //const Candidaterouter = require('./routes/candidate-routes')
-
+const Voterrouter = require('../Server/routes/voter-routes');
+const Candidaterouter = require('./routes/candidate-routes');
 app.use(cookieParser())
 app.use(bodyParser.json());
 app.use(express.static('public'))
@@ -32,7 +33,8 @@ app.use(cors(
 
 app.use('/user',Userrouter)
 app.use ('/election',Electionrouter)
-
+app.use('/voter',Voterrouter)
+app.use('/candidate',Candidaterouter)
 
 mongoose.connect(
     process.env.conn_str,

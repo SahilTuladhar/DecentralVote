@@ -3,9 +3,12 @@ import Sidebar from "../../ui/Sidebar/Sidebar";
 import Navbar from "../../ui/Navbar/Navbar";
 import useInput from "../../hooks/use-input";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const AddCandidate = () => {
   const [error, setError] = useState(null);
+  const {id} = useParams()
 
   const {
     value: enteredName,
@@ -43,31 +46,24 @@ const AddCandidate = () => {
     idReset();
   };
 
-  const onAddCandidate = async (candidateData) => {
-    setError(null);
+  const onAddCandidate = async (event) => {
 
-    try {
-      const response = await fetch(
-        "https://decentral-51b5a-default-rtdb.firebaseio.com/candidate.json",
-        {
-          method: "POST",
-          body: JSON.stringify(candidateData),
-          headers: {
-            "content-type": "application.json",
-          },
-        }
-      );
+    const name = enteredName
+    const voterID= enteredId
+  
 
-      if (!response.ok) {
-        throw new Error("Something is Wrong ");
-      }
+  try {
+    const response = await axios.post(`http://localhost:4000/candidate/addcandidate/${id}`, {
+      name,
+      voterID
 
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      setError(error.message);
-    }
-  };
+    });
+
+    ;
+  } catch (err) {
+    console.log(err);
+  }
+};
 
   return (
     <>

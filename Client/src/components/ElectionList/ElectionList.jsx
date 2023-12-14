@@ -5,6 +5,7 @@ import Navbar from "../../ui/Navbar/Navbar";
 import { bouncy } from "ldrs";
 import { Link } from "react-router-dom";
 import axios from 'axios'
+import AddVoter from "../AddVoter/AddVoter";
 
 const ElectionList = () => {
   bouncy.register();
@@ -47,11 +48,13 @@ const ElectionList = () => {
     content = elections.map((item) => {
       return (
         <ElectionItem
+          electionid = {item._id}
           title={item.title}
           organizer={item.organizer}
           sDate={item.startdate}
           eDate={item.enddate}
         />
+       
       );
     });
   }
