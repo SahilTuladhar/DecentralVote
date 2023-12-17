@@ -41,14 +41,12 @@ const electionlist = async(req,res)=>{
     const Userid = User.id
     try {
         const elections= await Election.find({ createdby: Userid})
-        console.log('elections',elections)
+       // console.log('elections',elections)
         res.send({elections});
     } catch (error) {
         
     }
 }
-
-
 
 
 

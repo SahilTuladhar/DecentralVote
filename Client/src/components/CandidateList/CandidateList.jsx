@@ -4,48 +4,34 @@ import Navbar from "../../ui/Navbar/Navbar";
 import UserItemCover from "../../ui/UserItemCover/UserItemCover";
 import { bouncy } from "ldrs";
 import { useState, useEffect } from "react";
-
+import { useParams } from "react-router-dom";
+import axios from "axios";
 const CandidateList = () => {
   bouncy.register();
 
   const [candidateList, setCandidateList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-
+  const { id } = useParams();
   const fetchData = async () => {
     setError(null);
     setIsLoading(true);
-
     try {
-      const response = await fetch(
-        "https://decentral-51b5a-default-rtdb.firebaseio.com/candidate.json",
-        {
-          Method: "GET",
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Something is Wrong");
-      }
-
-      const data = await response.json();
-      console.log(data);
-
-      const cList = [];
-
-      for (const key in data) {
-        cList.push({
-          cName: data[key].candidateName,
-          cId: data[key].candidateId,
-        });
-      }
-
-      setCandidateList(cList);
+      console.log('id', id);
+  
+      const response = await axios.get(`http://localhost:4000/candidate/getcandidate/${id}`, {
+        withCredentials: true,
+      });
+  
+      console.log('Response:', response.data);
+      setCandidateList(response.data);
     } catch (error) {
-      setError(error);
+      console.error('Error fetching voter data:', error);
+      setError(error.message);  // or setError('Error fetching voter data');
     }
-
     setIsLoading(false);
+
+ 
   };
 
   useEffect(() => {
@@ -56,7 +42,7 @@ const CandidateList = () => {
 
   if (candidateList.length > 0) {
     content = candidateList.map((item) => {
-      return <UserItemCover name={item.cName} id={item.cId} />;
+      return <UserItemCover name={item.name} id={item.voterID} />;
     });
   }
 

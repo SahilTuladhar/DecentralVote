@@ -38,4 +38,53 @@ const addVoter = async (req, res, next) => {
     }
 };
 
-module.exports = { addVoter };
+
+const getVoterInfo = async (req,res,next) => {
+    try {
+      // Find the election by ID
+      const {electionId} = req.params
+      
+      const election = await Election.findById(electionId);
+
+      if (!election) {
+        return res.status(404).send('Election not found'); // Election not found
+      }
+  
+      // Step 2: Extract Voter IDs
+      const voterIds = election.voters;
+  
+      // Step 3: Retrieve User Details for Each Voter
+      const votersDetails = await Promise.all(
+        voterIds.map(async (voterId) => {
+          const user = await User.findOne({ voterID: voterId });
+  
+          if (!user) {
+            return null; // User not found
+          }
+  
+          // Extract the details of the voter excluding sensitive information
+          const voterDetails = {
+            name: user.name,
+            voterID: user.voterID,
+            // Add other user details you want to include
+          };
+  
+          return voterDetails;
+        })
+      );
+  
+      const filteredVotersDetails = votersDetails.filter(Boolean); // Remove null values (users not found)
+  
+      if (filteredVotersDetails.length > 0) {
+        console.log('ff',filteredVotersDetails)
+        res.status(200).send(filteredVotersDetails);
+      } else {
+        res.status(404).send('No voters found for the specified election.');
+      }
+    } catch (error) {
+      console.error('Error retrieving voter details for the election:', error);
+      throw error;
+    }
+  };
+
+module.exports = { addVoter , getVoterInfo };

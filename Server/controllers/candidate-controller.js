@@ -38,4 +38,55 @@ const addCandidate = async (req, res, next) => {
     }
 };
 
-module.exports = { addCandidate };
+
+
+
+
+const getcandidateInfo = async (req,res,next) => {
+    try {
+        const {electionId} = req.params
+      
+        const election = await Election.findById(electionId);
+  
+      if (!election) {
+        return res.status(404).send('Election not found'); // Election not found
+      }
+  
+      // Step 2: Extract Candidate IDs
+      const candidateIds = election.candidates;
+  
+      // Step 3: Retrieve User Details for Each Candidate
+      const candidatesDetails = await Promise.all(
+        candidateIds.map(async (candidateId) => {
+          const user = await User.findOne({ voterID: candidateId });
+  
+          if (!user) {
+            return null; // User not found
+          }
+  
+          // Extract the details of the candidate excluding sensitive information
+          const candidateDetails = {
+            name: user.name,
+            voterID: user.voterID,
+            // Add other user details you want to include
+          };
+  
+          return candidateDetails;
+        })
+      );
+  
+      const filteredCandidatesDetails = candidatesDetails.filter(Boolean); // Remove null values (users not found)
+  
+      if (filteredCandidatesDetails.length > 0) {
+        console.log('ff',filteredCandidatesDetails)
+        res.status(200).send(filteredCandidatesDetails);
+      } else {
+        res.status(404).send('No candidates found for the specified election.');
+      }
+    } catch (error) {
+      console.error('Error retrieving candidates details for the election:', error);
+      res.status(500).send('Internal Server Error');
+    }
+  };
+  
+module.exports = { addCandidate, getcandidateInfo };

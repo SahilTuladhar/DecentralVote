@@ -24,8 +24,8 @@ function App() {
       <Route path="/election-page" element={<ElectionPage />} />
       <Route path="/add-voter/:id" element={<AddVoter />} />
       <Route path="/add-candidate/:id" element={<AddCandidate />} />
-      <Route path="/voters-list" element={<VotersList />} />
-      <Route path="/candidate-list" element={<CandidateList />} />
+      <Route path="/voters-list/:id" element={<VotersList />} />
+      <Route path="/candidate-list/:id" element={<CandidateList />} />
     </Routes>
   );
 }

@@ -5,5 +5,6 @@ const controls = require( '../controllers/voter-controller')
 const Voterrouter = express.Router()
 
 Voterrouter.post('/addvoter/:electionId',controls.addVoter)
+Voterrouter.get('/getvoter/:electionId',controls.getVoterInfo)
 
 module.exports = Voterrouter; 

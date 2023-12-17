@@ -125,7 +125,7 @@ const ElectionPage = (props) => {
           </div>
           <div className={styles.pageContentRight}>
             <div className={styles.infoBlocks}>
-              <ElectionPageData />
+              <ElectionPageData eid = {electionItemCtx.electionId} />
             </div>
           </div>
         </div>

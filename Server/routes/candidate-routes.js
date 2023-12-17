@@ -5,5 +5,6 @@ const controls = require( '../controllers/candidate-controller')
 const Candidaterouter = express.Router()
 
 Candidaterouter.post('/addcandidate/:electionId',controls.addCandidate)
+Candidaterouter.get('/getcandidate/:electionId',controls.getcandidateInfo)
 
 module.exports = Candidaterouter; 

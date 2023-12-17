@@ -27,14 +27,14 @@ const Sidebar = (props) => {
           iconTitle={<PollOutlinedIcon />}
         />
 
-        <Link to="/voters-list">
+        <Link to={`/voters-list/${props.eid}`}>
           <SidebarComponent
             optionTitle="Voters List"
             iconTitle={<PeopleAltOutlinedIcon />}
           />
         </Link>
 
-        <Link to ="/candidate-list">
+        <Link to ={`/candidate-list/${props.eid}`}>
           <SidebarComponent
             optionTitle="Candidate List"
             iconTitle={<EmojiPeopleOutlinedIcon />}
